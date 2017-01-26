@@ -1,7 +1,11 @@
 ---
+- name: Alfresco | RedHat | Install RepoForge repository key
+  rpm_key:
+    state: present
+    key: https://rpms.remirepo.net/RPM-GPG-KEY-remi
+
 - name: Alfresco | RedHat | Install RepoForge repository
   yum: 
-    disable_gpg_check: yes
     state: present
     name: "http://rpms.famillecollet.com/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
 
@@ -19,3 +23,34 @@
   yum: 
     state: latest
     name: tomcat
+
+- name: Alfresco | RedHat | Check LibreOffice is installed on target host
+  command: "rpm -q libreoffice4.4.x86_64"
+  ignore_errors: true
+  register: libreoffice_exist_check
+
+- name: Alfresco | RedHat | Download and unpack LibreOffice
+  unarchive:
+    src: "http://downloadarchive.documentfoundation.org/libreoffice/old/4.4.5.2/rpm/x86_64/LibreOffice_4.4.5.2_Linux_x86-64_rpm.tar.gz"
+    remote_src: true
+    dest: "/tmp"
+  when: libreoffice_exist_check.rc == 1
+
+# We cannot use basic ansible yum plugin because it does not see dependencies in same folder!
+#- name: Alfresco | RedHat | LibreOffice local install get all files list
+#  find:
+#    paths: "/tmp/LibreOffice_4.4.5.2_Linux_x86-64_rpm/RPMS/"
+#    patterns: "*.rpm"
+#  when: libreoffice_exist_check.rc  == 1
+#  register: rpm_files
+
+#- name: Alfresco | RedHat | LibreOffice local install
+#  yum:
+#    name: "{{ item.path }}"
+#    state: present
+#  with_items: "{{ rpm_files.files }}"
+#  when: libreoffice_exist_check.rc == 1
+
+- name: Alfresco | RedHat | LibreOffice local install
+  shell: "yum localinstall -y /tmp/LibreOffice_4.4.5.2_Linux_x86-64_rpm/RPMS/*.rpm"
+  when: libreoffice_exist_check.rc == 1
