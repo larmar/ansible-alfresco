@@ -1,0 +1,14 @@
+---
+- name: Alfresco | Create or update the configurations for alfresco site
+  template:
+    src: alfresco.site.j2
+    dest: "{{ nginx_dir }}/sites-available/{{ inventory_hostname }}"
+
+- name: Alfresco | Enable alfresco sites
+  file:
+    path: "{{ nginx_dir }}/sites-enabled/{{ inventory_hostname }}"
+    src: "{{ nginx_dir }}/sites-available/{{ inventory_hostname }}"
+    state: link
+  notify:
+    - reload nginx
+
