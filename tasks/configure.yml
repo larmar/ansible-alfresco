@@ -12,3 +12,7 @@
   notify:
     - reload nginx
 
+- name: Alfresco | Create or update the configurations for alfresco site
+  template:
+    src: environment.j2
+    dest: "/etc/environment"
