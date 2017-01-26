@@ -1,0 +1,50 @@
+---
+
+- name: Alfresco | RedHat | Download and unpack Alfresco community edition
+  unarchive:
+    src: "http://dl.alfresco.com/release/community/201612-build-00014/alfresco-community-distribution-201612.zip"
+    remote_src: true
+    dest: "/tmp"
+
+# We cannot use ansible copy module right now because it does not support recurcive copy in ansible 2.0/2.2. So we use shell module and working with individual directories.
+
+- name: Alfresco | RedHat | Create Alfresco related directories
+  file:
+    state: directory
+    path: "{{ item }}"
+  with_items:
+    - /usr/share/tomcat/shared
+    - /usr/share/tomcat/shared/classes
+    - /usr/share/tomcat/shared/lib
+    - /srv/alfresco
+
+- name: Alfresco | RedHat | Move postgre jar to libs
+  shell: "mv /tmp/alfresco-community-distribution-201612/web-server/lib/postgresql-9.4.1211.jre7.jar /usr/share/tomcat/shared/lib/"
+
+- name: Alfresco | RedHat | Move webapps
+  shell: "mv /tmp/alfresco-community-distribution-201612/web-server/webapps/* /usr/share/tomcat/webapps/"
+
+- name: Alfresco | RedHat | Move solr4
+  shell: "mv /tmp/alfresco-community-distribution-201612/solr4 /usr/local/share"
+
+- name: Alfresco | RedHat | Move alf_data
+  shell: "mv /tmp/alfresco-community-distribution-201612/alf_data /srv/alfresco/"
+
+- name: Alfresco | RedHat | Move licenses
+  shell: "mv /tmp/alfresco-community-distribution-201612/licenses /srv/alfresco/"
+
+- name: Alfresco | RedHat | Move modules
+  shell: "mv /tmp/alfresco-community-distribution-201612/modules /srv/alfresco/"
+
+- name: Alfresco | RedHat | Move tomcat configs
+  shell: "mv /tmp/alfresco-community-distribution-201612/web-server/conf/Catalina/localhost/* /usr/share/tomcat/conf/Catalina/localhost/"
+
+- name: Alfresco | RedHat | Move classes
+  shell: "mv /tmp/alfresco-community-distribution-201612/web-server/shared/classes/* /usr/share/tomcat/shared/classes/"
+
+- name: Alfresco | RedHat | Make link to Java
+  file:
+    state: link
+    path: /srv/alfresco/java
+    src: /usr/java/jre1.8.0_65
+    force: true

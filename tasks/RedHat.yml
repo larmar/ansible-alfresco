@@ -54,3 +54,29 @@
 - name: Alfresco | RedHat | LibreOffice local install
   shell: "yum localinstall -y /tmp/LibreOffice_4.4.5.2_Linux_x86-64_rpm/RPMS/*.rpm"
   when: libreoffice_exist_check.rc == 1
+
+- name: Alfresco | RedHat | Check Alfresco files already deployed on target host
+  stat:
+    path: /srv/alfresco
+  ignore_errors: true
+  register: alfresco_exist_check
+
+- name: Alfresco | RedHat | Download and unpack Alfresco community edition
+  include: alfresco-move.yml
+  when:
+    - alfresco_exist_check.stat.exists == false
+
+# User rights configuration not included in unpack scenario because user rights can be broken during production use and should be fixed with Ansible.
+
+- name: Alfresco | RedHat | Configure user Rights for folders
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    state: directory
+    recurse: true
+  with_items:
+    - { owner: "root", group: "tomcat", path: "/usr/share/tomcat/shared" }
+    - { owner: "root", group: "tomcat", path: "/var/lib/tomcat/webapps" }
+    - { owner: "root", group: "tomcat", path: "/etc/tomcat/Catalina" }
+    - { owner: "tomcat", group: "tomcat", path: "/srv/alfresco/alf_data" }
