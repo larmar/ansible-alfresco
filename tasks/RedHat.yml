@@ -1,0 +1,21 @@
+---
+- name: Alfresco | RedHat | Install RepoForge repository
+  yum: 
+    disable_gpg_check: yes
+    state: present
+    name: "http://rpms.famillecollet.com/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
+
+- name: Alfresco | RedHat | Disable SELinux on server
+  selinux:
+    state: disabled
+
+- name: Alfresco | RedHat | Install ImageMagick6 package
+  yum: 
+    enablerepo: remi
+    state: latest
+    name: ImageMagick6
+
+- name: Alfresco | RedHat | Install Tomcat 7 package
+  yum: 
+    state: latest
+    name: tomcat

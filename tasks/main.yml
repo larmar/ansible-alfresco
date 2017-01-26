@@ -1,2 +1,11 @@
 ---
-# tasks file for larmar.alfresco
+- name: Alfresco | Including playbook for RedHat operating systems installation sequence.
+  include: RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- name: Alfresco | Including playbook for Debian operating systems installation sequence.
+  include: Debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Alfresco | Server configuration
+  include: configure.yml
