@@ -24,6 +24,23 @@
     state: latest
     name: tomcat
 
+- name: Alfresco | RedHat | Check JRE is installed on target host
+  command: "rpm -q jre1.8.0_65.x86_64"
+  ignore_errors: true
+  register: jdk_exist_check
+
+# Ansible module saves cookies and download fails here. So using wget instead of get_url
+
+- name: Alfresco | RedHat | Download JRE to tmp folder
+  shell: "wget -O /tmp/jre-8u65-linux-x64.rpm --no-cookies --no-check-certificate --header 'Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie' 'http://download.oracle.com/otn-pub/java/jdk/8u65-b17/jre-8u65-linux-x64.rpm'"
+  when: jdk_exist_check.rc == 1
+
+- name: Alfresco | RedHat | Install/Update JRE
+  yum:
+    state: present
+    name: /tmp/jre-8u65-linux-x64.rpm
+  when: jdk_exist_check.rc == 1
+
 - name: Alfresco | RedHat | Check LibreOffice is installed on target host
   command: "rpm -q libreoffice4.4.x86_64"
   ignore_errors: true
