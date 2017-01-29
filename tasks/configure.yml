@@ -41,3 +41,12 @@
     src: server.xml.j2
     dest: /etc/tomcat/server.xml
     backup: true
+
+# Solr 4 config related updates
+
+- name: Alfresco | Update tomcat tomcat-users.xml.j2
+  template:
+    src: tomcat-users.xml.j2
+    dest: /etc/tomcat/tomcat-users.xml
+    backup: true
+
