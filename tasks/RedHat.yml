@@ -83,6 +83,12 @@
   when:
     - alfresco_exist_check.stat.exists == false
 
+# Keys generation will not run if already exist on remote server in root folder
+- name: Alfresco | RedHat | Generate SOLR4 Keys
+  script: generate_keys.sh
+  args:
+    creates: /root/browser.p12
+
 # User rights configuration not included in unpack scenario because user rights can be broken during production use and should be fixed with Ansible.
 
 - name: Alfresco | RedHat | Configure user Rights for folders
