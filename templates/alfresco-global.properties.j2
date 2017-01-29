@@ -3,7 +3,7 @@
 dir.root=/srv/alfresco/alf_data
 dir.keystore=${dir.root}/keystore
 
-db.username={{ alfresco_conf_db_username}}
+db.username={{ alfresco_conf_db_username }}
 db.password={{ alfresco_conf_db_password }}
 
 ooo.exe=/opt/libreoffice4.4/program/soffice
@@ -19,8 +19,12 @@ cifs.enabled=false
 #cifs.netBIOSSMB.namePort=137
 #cifs.netBIOSSMB.datagramPort=138
 
+{% if alfresco_user_store_adminpassword is defined %}
+
 ### Initial admin password ###
-alfresco_user_store.adminpassword=< Generate NTLM Hash default password see references.>
+alfresco_user_store.adminpassword={{ alfresco_user_store_adminpassword }}
+
+{% endif %}
 
 ### E-mail site invitation setting ###
 notification.email.siteinvite=false
