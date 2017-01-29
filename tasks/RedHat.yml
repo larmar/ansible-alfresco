@@ -19,11 +19,6 @@
     state: latest
     name: ImageMagick6
 
-- name: Alfresco | RedHat | Install Tomcat 7 package
-  yum: 
-    state: latest
-    name: tomcat
-
 - name: Alfresco | RedHat | Check JRE is installed on target host
   command: "rpm -q jre1.8.0_65.x86_64"
   ignore_errors: true
@@ -40,6 +35,11 @@
     state: present
     name: /tmp/jre-8u65-linux-x64.rpm
   when: jdk_exist_check.rc == 1
+
+- name: Alfresco | RedHat | Install Tomcat 7 package
+  yum:
+    state: latest
+    name: tomcat
 
 - name: Alfresco | RedHat | Check LibreOffice is installed on target host
   command: "rpm -q libreoffice4.4.x86_64"
