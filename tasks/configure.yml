@@ -30,3 +30,14 @@
     dest: "/usr/share/tomcat/shared/classes/alfresco-global.properties"
     backup: true
 
+- name: Alfresco | Update tomcat catalina.properties
+  template:
+    src: catalina.properties.j2
+    dest: /etc/tomcat/catalina.properties
+    backup: true
+
+- name: Alfresco | Update tomcat server.xml
+  template:
+    src: server.xml.j2
+    dest: /etc/tomcat/server.xml
+    backup: true
