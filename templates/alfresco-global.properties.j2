@@ -1,0 +1,32 @@
+dir.root=/srv/alfresco/alf_data
+dir.keystore=${dir.root}/keystore
+
+db.username={{ alfresco_conf_db_username}}
+db.password={{ alfresco_conf_db_password }}
+
+ooo.exe=/opt/libreoffice4.4/program/soffice
+img.root=/
+
+db.driver=org.postgresql.Driver
+db.url=jdbc:postgresql://localhost:5432/alfresco
+
+### CIFS Subsystem ###
+cifs.enabled=false
+#cifs.tcpipSMB.port=445
+#cifs.netBIOSSMB.sessionPort=139
+#cifs.netBIOSSMB.namePort=137
+#cifs.netBIOSSMB.datagramPort=138
+
+### Initial admin password ###
+alfresco_user_store.adminpassword=< Generate NTLM Hash default password see references.>
+
+### E-mail site invitation setting ###
+notification.email.siteinvite=false
+
+### License location ###
+dir.license.external=/srv/alfresco
+
+### Solr indexing ###
+index.subsystem.name=solr4
+solr.host=localhost
+solr.port.ssl=8443

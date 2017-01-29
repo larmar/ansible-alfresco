@@ -1,8 +1,12 @@
 ---
+
+# Nginx confgiure
+
 - name: Alfresco | Create or update the configurations for alfresco site
   template:
     src: alfresco.site.j2
     dest: "{{ nginx_dir }}/sites-available/{{ inventory_hostname }}"
+    backup: true
 
 - name: Alfresco | Enable alfresco sites
   file:
@@ -12,7 +16,17 @@
   notify:
     - reload nginx
 
-- name: Alfresco | Create or update the configurations for alfresco site
+- name: Alfresco | Create or update the configurations for Alfresco site
   template:
     src: environment.j2
     dest: "/etc/environment"
+    backup: true
+
+# Alfresco config deploy
+
+- name: Alfresco | Create or update the configurations for Alfresco tomcat app
+  template:
+    src: alfresco-global.properties.j2
+    dest: "/usr/share/tomcat/shared/classes/alfresco-global.properties"
+    backup: true
+

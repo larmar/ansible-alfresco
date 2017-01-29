@@ -1,2 +1,4 @@
 ---
-# defaults file for larmar.alfresco
+# Alfreco config template vars.
+alfresco_conf_db_username: "alfresco"
+alfresco_conf_db_password: "alfresco"
