@@ -18,3 +18,11 @@ galaxy_info:
 dependencies: 
     - insspb.utils
     - insspb.nginx
+    - { role: ANXS.postgresql,
+        postgresql_version: "{{ alfresco_postgresql_version }}",
+        postgresql_max_connections: "{{ alfresco_postgresql_max_connections }}",
+        postgresql_default_auth_method: "{{ alfresco_postgresql_default_auth_method }}",
+        postgresql_users: [{name: "{{ alfresco_conf_db_username }}",pass: "{{ alfresco_conf_db_password }}"}],
+        postgresql_databases: [{name: "{{ alfresco_conf_database_name }}"}],
+        postgresql_user_privileges: [{name: "{{ alfresco_conf_db_username }}",db: "{{ alfresco_conf_database_name }}",priv: "ALL"}]
+    }

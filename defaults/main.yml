@@ -1,4 +1,22 @@
 ---
+# Role options
+
+alfresco_service_enabled: True
+
 # Alfreco config template vars.
+
+alfresco_conf_database_name: "alfresco"
 alfresco_conf_db_username: "alfresco"
 alfresco_conf_db_password: "alfresco"
+
+# alfresco_user_store_adminpassword used only for password restore on existing installations
+# alfresco_user_store_adminpassword should be NTLM hash
+# example to encode admin word in linux console:
+# printf '%s' 'admin' | iconv -t utf16le | openssl md4
+
+#alfresco_user_store_adminpassword: "209c6174da490caeb422f3fa5a7ae634"
+
+# DB server settings
+alfresco_postgresql_version: "9.4"
+alfresco_postgresql_max_connections: "300"
+alfresco_postgresql_default_auth_method: "trust" #will fail deploy on md5
