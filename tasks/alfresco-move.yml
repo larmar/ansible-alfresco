@@ -48,3 +48,7 @@
     path: /srv/alfresco/java
     src: /usr/java/jre1.8.0_65
     force: true
+
+- name: Alfresco | RedHat | Java share amp install
+  shell: "java -jar /tmp/alfresco-community-distribution-201612/bin/alfresco-mmt.jar install /tmp/alfresco-community-distribution-201612/amps/alfresco-share-services.amp /usr/share/tomcat/webapps/alfresco.war"
+
