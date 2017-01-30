@@ -1,0 +1,15 @@
+---
+- name: Alfresco | Cleanup | Remove Alfresco distribution downloaded files
+  file:
+    state: absent
+    path: /tmp/alfresco-community-distribution-201612
+
+- name: Alfresco | Cleanup | Remove LibreOffice downloaded files
+  file:
+    state: absent
+    path: /tmp/LibreOffice_4.4.5.2_Linux_x86-64_rpm
+
+- name: Alfresco | Cleanup | Remove JRE downloaded files
+  file:
+    state: absent
+    path: /tmp/jre-8u65-linux-x64.rpm

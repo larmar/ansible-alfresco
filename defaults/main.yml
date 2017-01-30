@@ -20,3 +20,5 @@ alfresco_conf_db_password: "alfresco"
 alfresco_postgresql_version: "9.4"
 alfresco_postgresql_max_connections: "300"
 alfresco_postgresql_default_auth_method: "trust" #will fail deploy on md5
+
+alfresco_installation_cleanup: True

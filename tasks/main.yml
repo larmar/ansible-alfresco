@@ -9,3 +9,7 @@
 
 - name: Alfresco | Server configuration
   include: configure.yml
+
+- name: Alfresco | Downloaded files cleanup
+  include: cleanup.yml
+  when: alfresco_installation_cleanup
