@@ -1,4 +1,10 @@
 ---
+- name:  Alfresco | RedHat | PostgreSQL | Ensure PostgreSQL is enabled and running
+  service:
+    name: "postgresql-{{ alfresco_postgresql_version }}"
+    enabled: yes
+    state: started
+
 - name: Alfresco | RedHat | Install RepoForge repository key
   rpm_key:
     state: present
