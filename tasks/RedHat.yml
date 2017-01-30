@@ -82,12 +82,16 @@
   include: alfresco-move.yml
   when:
     - alfresco_exist_check.stat.exists == false
+  notify:
+    -  Alfresco | Restart tomcat
 
 # Keys generation will not run if already exist on remote server in root folder
 - name: Alfresco | RedHat | Generate SOLR4 Keys
   script: generate_keys.sh
   args:
     creates: /root/browser.p12
+  notify:
+    -  Alfresco | Restart tomcat
 
 # User rights configuration not included in unpack scenario because user rights can be broken during production use and should be fixed with Ansible.
 
@@ -103,3 +107,6 @@
     - { owner: "root", group: "tomcat", path: "/var/lib/tomcat/webapps" }
     - { owner: "root", group: "tomcat", path: "/etc/tomcat/Catalina" }
     - { owner: "tomcat", group: "tomcat", path: "/srv/alfresco/alf_data" }
+  notify:
+    -  Alfresco | Restart tomcat
+

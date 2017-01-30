@@ -1,2 +1,6 @@
 ---
 # handlers file for larmar.alfresco
+- name: Alfresco | Restart tomcat
+  service:
+    name: tomcat
+    state: restarted

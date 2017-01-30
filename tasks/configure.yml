@@ -29,18 +29,24 @@
     src: alfresco-global.properties.j2
     dest: "/usr/share/tomcat/shared/classes/alfresco-global.properties"
     backup: true
+  notify:
+    -  Alfresco | Restart tomcat
 
 - name: Alfresco | Update tomcat catalina.properties
   template:
     src: catalina.properties.j2
     dest: /etc/tomcat/catalina.properties
     backup: true
+  notify:
+    -  Alfresco | Restart tomcat
 
 - name: Alfresco | Update tomcat server.xml
   template:
     src: server.xml.j2
     dest: /etc/tomcat/server.xml
     backup: true
+  notify:
+    -  Alfresco | Restart tomcat
 
 # Solr 4 config related updates
 
@@ -49,4 +55,14 @@
     src: tomcat-users.xml.j2
     dest: /etc/tomcat/tomcat-users.xml
     backup: true
+  notify:
+    -  Alfresco | Restart tomcat
+
+- name: Alfresco | Enable tomcat service
+  service:
+    name: tomcat
+    enabled: yes
+  when: "{{ alfresco_service_enabled }}"
+  notify:
+    -  Alfresco | Restart tomcat
 
