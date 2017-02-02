@@ -46,4 +46,4 @@ In case you want to use password auth for you hosts you should select Stub on pr
 
 1. Click "Nodes" you should see all nodes located in you Ansible hosts file.
 
-You can check [screenshot](/img/rundeck_project_config.png) of our example project on test Rundeck server here.  
+You can check [screenshot](img/rundeck_project_config.png) of our example project on test Rundeck server here.  
