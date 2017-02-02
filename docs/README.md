@@ -10,3 +10,9 @@
 1. [Project creation](project_config.md).
 2. [Job configuration](job_config.md).
 3. [Running jobs without Ansible hosts](hints.md).
+
+## More docs!
+
+- [Ansible Documentation](http://docs.ansible.com/ansible/index.html)
+- [Rundeck Documentation](http://rundeck.org/docs/index.html)
+- [Rundeck Ansible Plugin Github](https://github.com/Batix/rundeck-ansible-plugin)
