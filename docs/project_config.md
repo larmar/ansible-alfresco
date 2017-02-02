@@ -1,6 +1,6 @@
 ## Create Rundeck project
 
-First off all we need to create Rundeck project that will use our Ansible hosts file like node source. It is possible to use other resourses sources like yaml files, but it will be a little bit harder to config new job.
+First off all we need to create Rundeck project that will use our Ansible hosts file like node source. It is possible to use other resources sources like yaml files, but it will be a little bit harder to config new job.
 
 ### Project details
 
